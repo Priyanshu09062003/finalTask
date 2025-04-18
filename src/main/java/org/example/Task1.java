@@ -1,233 +1,115 @@
 package org.example;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.checkerframework.checker.units.qual.C;
-import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 
 public class Task1 {
-    public void populate(List<TestData> testDataSets)
-    {
-        TestData data1 = new TestData();
-        data1.setFirstName("John");
-        data1.setLastName("Doe");
-        data1.setEmail("john.doe@example.com");
-        data1.setGender("Male");
-        data1.setMobileNumber("1234567890");
-        data1.setDateOfBirth("05/20/1995");
-        data1.setSubjects("Computer Science and Math");
-        data1.setHobbies("Sports");
-        data1.setAddress("123 Main Street, New York");
-        data1.setState("NCR");
-        data1.setCity("Delhi");
-        testDataSets.add(data1);
 
-        TestData data2 = new TestData();
-        data2.setFirstName("Jane");
-        data2.setLastName("Smith");
-        data2.setEmail("jane.smith@example.com");
-        data2.setGender("Female");
-        data2.setMobileNumber("9876543210");
-        data2.setDateOfBirth("10/15/1990");
-        data2.setSubjects("English and Arts");
-        data2.setHobbies("Music");
-        data2.setAddress("456 Park Avenue, Boston");
-        data2.setState("Haryana");
-        data2.setCity("Karnal");
-        testDataSets.add(data2);
-    }
-
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args)  throws  Exception{
         WebDriver driver = new ChromeDriver();
-//        driver.get("https://demoqa.com/automation-practice-form");
-
-
-//        JavascriptExecutor jsx = (JavascriptExecutor) driver;
-//        jsx.executeScript("window.scroll(0, 250)");
-//
-//        WebElement element = driver.findElement(By.xpath("//input[@id='firstName']"));
-//        element.sendKeys("priyanshu");
-//        List<TestData> testdataSets = new ArrayList<>();
-//        XSSFWorkbook workbook = new XSSFWorkbook();
-//        XSSFSheet sheet = workbook.createSheet("TestData");
-//
-//        XSSFRow row = sheet.createRow(0);
-//        row.createCell(0).setCellValue("Firstname");
-//        row.createCell(1).setCellValue("Lastname");
-//        row.createCell(2).setCellValue("Email");
-//        row.createCell(3).setCellValue("Gender");
-//        row.createCell(4).setCellValue("Mobile_no");
-//        row.createCell(5).setCellValue("DOB");
-//        row.createCell(6).setCellValue("Subject");
-//        row.createCell(7).setCellValue("Hobby");
-//        row.createCell(8).setCellValue("Address");
-//        row.createCell(9).setCellValue("State");
-//        row.createCell(10).setCellValue("City");
-//
-//        row = sheet.createRow(1);
-//        row.createCell(0).setCellValue("Priyanshu");
-//        row.createCell(1).setCellValue("Chaudhari");
-//        row.createCell(2).setCellValue("xyz@gmail.com");
-//        row.createCell(3).setCellValue("Male");
-//        row.createCell(4).setCellValue("7709841466");
-//        row.createCell(5).setCellValue("1990-10-15");
-//        row.createCell(6).setCellValue("Maths");
-//        row.createCell(7).setCellValue("Sports");
-//        row.createCell(8).setCellValue("123 Main Street, New York");
-//        row.createCell(9).setCellValue("Maharashtra");
-//        row.createCell(10).setCellValue("Dhule");
-//
-//        row = sheet.createRow(2);
-//        row.createCell(0).setCellValue("Prem");
-//        row.createCell(1).setCellValue("Chaudhari");
-//        row.createCell(2).setCellValue("xyz@gmail.com");
-//        row.createCell(3).setCellValue("Male");
-//        row.createCell(4).setCellValue("7706841466");
-//        row.createCell(5).setCellValue("10/15/2003");
-//        row.createCell(6).setCellValue("Science");
-//        row.createCell(7).setCellValue("Reading");
-//        row.createCell(8).setCellValue("123 Main Street, New York");
-//        row.createCell(9).setCellValue("Maharashtra");
-//        row.createCell(10).setCellValue("Dhule");
-//
-//
-//        try {
-//            FileOutputStream out = new FileOutputStream("output1.xlsx");
-//            workbook.write(out);
-//            out.close();
-//            workbook.close();
-//        }
-//        catch (Exception e)
-//        {
-//            System.out.println("Exception ");
-//        }
-
-        List<List<String>> testdata = new ArrayList<>();
-
-        FileInputStream file = new FileInputStream("output1.xlsx");
-        Workbook workbook1 = new XSSFWorkbook(file);
-        Sheet sheet1 = workbook1.getSheet("TestData");
-
-        for (int r = 1; r <= 2; r++) {
-            List<String> rowData = new ArrayList<>();
-            for (int col = 0; col < 11; col++) {
-                String data = sheet1.getRow(r).getCell(col).getStringCellValue();
-                rowData.add(data);
-            }
-            testdata.add(rowData);
-        }
-
-        workbook1.close();
-        file.close();
-
-        System.out.println(testdata);
-
-        driver.get("https://demoqa.com/automation-practice-form");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
 
-        // Wait for page to load
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstName")));
-
-        // 3. Fill out the form dynamically
-        // Text fields
-
-        driver.findElement(By.xpath("//input[@id='firstName']")).sendKeys(testdata.get(0).get(0));
-        driver.findElement(By.xpath("//input[@id='lastName']")).sendKeys(testdata.get(0).get(1));
-        driver.findElement(By.xpath("//input[@placeholder='name@example.com']")).sendKeys(testdata.get(0).get(2));
-//        click the radio button
-        WebElement element = driver.findElement(By.xpath("//input[@value='" + testdata.get(0).get(3) + "']"));
-//        element.click();
+        driver.get("https://www.angelone.in/top-gainers-nse");
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].click();", element);
+        js.executeScript("window.scrollBy(0,350)");
 
-        driver.findElement(By.xpath("//input[@placeholder='Mobile Number']")).sendKeys(testdata.get(0).get(4));
+        // Dismiss popup if present
+        try {
+            WebElement popup = driver.findElement(By.id("wzrk-cancel"));
+            new Actions(driver).moveToElement(popup).click().perform();
+        } catch (Exception ignored) {}
 
-        WebElement date = driver.findElement(By.xpath("//input[@id='dateOfBirthInput']"));
-        js.executeScript("arguments[0].value = '"+testdata.get(0).get(5) +"';", date);
+        // TreeMap to store gain % → StockInfo
+        TreeMap<Double, StockInfo> gainMap = new TreeMap<>();
 
-//        driver.findElement(By.xpath("//input[@id='subjectsInput']")).sendKeys(testdata.get(0).get(6));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(
-//                By.xpath("//div[contains(@class, 'subjects-auto-complete__menu')]")));
-//        driver.findElement(By.xpath("//div[contains(@class, 'subjects-auto-complete__option')]")).click();
-//label[normalize-space()='Sports']
-//        WebElement e =driver.findElement(By.xpath("//label[normalize-space()='"+testdata.get(0).get(7) + "']/parent::input"));
-        String hobby = testdata.get(0).get(7);
-        WebElement e = null;
-        if(hobby.equals("Sports"))
-        {
-            e =driver.findElement(By.xpath("//input[@id='hobbies-checkbox-1']"));
-            js.executeScript("arguments[0].click()",e);
+        for (int i = 1; i <= 10; i++) {
+            try {
+                // Get % gain
+                String percentStr = driver.findElement(
+                        By.xpath("//table[@data-table-name='market-trends-topgainers-nse']/tbody/tr[" + i + "]//td[2]//p[2]//span[2]")
+                ).getText().replace("(", "").replace(")", "").replace("%", "");
+                double percent = Double.parseDouble(percentStr);
+
+                if (percent > 12.00) {
+                    // Company name
+                    String companyName = driver.findElement(
+                            By.xpath("//table[@data-table-name='market-trends-topgainers-nse']/tbody/tr[" + i + "]")
+                    ).getAttribute("data-complongname");
+
+                    // XPath to <a> tag
+                    String xpathToLink = "//table[@data-table-name='market-trends-topgainers-nse']/tbody/tr[" + i + "]//td[1]//a";
+
+                    // Highlight the row
+                    WebElement rowElement = driver.findElement(
+                            By.xpath("//table[@data-table-name='market-trends-topgainers-nse']/tbody/tr[" + i + "]")
+                    );
+                    js.executeScript(
+                            "arguments[0].style.cssText += 'background: rgba(144, 238, 144, 0.6); border: 2px solid green; border-radius: 4px;'",
+                            rowElement
+                    );
+
+                    // Store info
+                    gainMap.put(percent, new StockInfo(companyName, xpathToLink));
+
+                    System.out.println(companyName + " : " + percent + "%");
+                }
+            } catch (Exception e) {
+                System.out.println("Skipping row " + i + " due to unexpected structure.");
+            }
         }
-        else if(hobby.equals("Reading"))
-        {
-            e =driver.findElement(By.xpath("//input[@id='hobbies-checkbox-2']"));
-            js.executeScript("arguments[0].click()",e);
-        }
-        else {
-            e =driver.findElement(By.xpath("//input[@id='hobbies-checkbox-3']"));
-            js.executeScript("arguments[0].click()",e);
+
+        // Check if any company matched
+        if (gainMap.isEmpty()) {
+            System.out.println("❌ No company has gain > 12%");
+            driver.quit();
+            return;
         }
 
-        if(!e.isSelected())
-        {
-            e.click();
+        // Get highest gainer
+        double highestGain = gainMap.lastKey();
+        StockInfo topStock = gainMap.get(highestGain);
+
+        System.out.println("\nHighest Gainer Stock: " + topStock.companyName + " (" + highestGain + "%)");
+
+        // Scroll to element before clicking
+        WebElement toClick = driver.findElement(By.xpath(topStock.xpath));
+        js.executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'})", toClick);
+        toClick.click();
+
+        // Wait and verify
+        Thread.sleep(3000);
+        String clickedCompany = driver.findElement(By.xpath("//li[contains(@class,'active')]/a/span")).getText();
+        if (clickedCompany.equals(topStock.companyName)) {
+            System.out.println("Redirected to correct company stock page.");
+        } else {
+            System.out.println("Redirected to wrong company stock page.");
+            driver.quit();
+            return;
         }
-        driver.findElement(By.xpath("//textarea[@id='currentAddress']")).sendKeys(testdata.get(0).get(8));
-        Thread.sleep(2000);
 
-        WebElement stateDropdown = driver.findElement(By.xpath("//input[@id='react-select-3-input']"));
-        stateDropdown.sendKeys(testdata.get(0).get(9));
-        stateDropdown.sendKeys(Keys.ENTER);
-
-        WebElement cityDropDown =driver.findElement(By.xpath("//input[@id='react-select-4-input']"));
-        cityDropDown.sendKeys(testdata.get(0).get(10));
-        cityDropDown.sendKeys(Keys.ENTER);
-
-        Thread.sleep(2000);
-        WebElement submitButton = driver.findElement(By.id("submit"));
-        js.executeScript("arguments[0].scrollIntoView(true);", submitButton);
-        Thread.sleep(2000);
-        js.executeScript("arguments[0].click();", submitButton);
-
-        // Validate the confirmation message
-        WebElement confirmationHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[contains(@class, 'modal-title') and contains(text(), 'Thanks')]")));
-
-        boolean isConfirmationDisplayed = confirmationHeader.isDisplayed();
-        System.out.println("Form submitted successfully: " + isConfirmationDisplayed);
-        Thread.sleep(2000);
-//        js.executeScript("window.scrollTo(0, 250)");
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+//        System.out.println(LocalDateTime.now());
+        // Take screenshot
         TakesScreenshot ts = (TakesScreenshot) driver;
         File srcFile = ts.getScreenshotAs(OutputType.FILE);
-        File destFile = new File("FormValidation.png");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String timestamp = dateFormat.format(new Date());
+        File destFile = new File("TableValidation_" +timestamp + ".png");
         FileUtils.copyFile(srcFile, destFile);
 
-        System.out.println("Screenshot saved: FormValidation.png");
+        System.out.println("Screenshot saved: " + destFile.getName());
 
+//        driver.quit();
     }
-
-
 
 }
